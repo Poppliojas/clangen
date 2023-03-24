@@ -513,7 +513,7 @@ class Game():
                 "spirit_young_adult": {inter_cat.cat_sprites['young adult']},
                 "spirit_adult": {inter_cat.cat_sprites['adult']},
                 "spirit_senior_adult": {inter_cat.cat_sprites['senior adult']},
-                "spirit_elder": {inter_cat.cat_sprites['elder']},
+                "spirit_senior": {inter_cat.cat_sprites['senior']},
                 "spirit_dead": {inter_cat.cat_sprites['dead']},
                 "eye_colour": {inter_cat.eye_colour},
                 "reverse": {inter_cat.reverse},
