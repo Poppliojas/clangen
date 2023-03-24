@@ -1045,8 +1045,11 @@ def update_sprite(cat):
             new_sprite.blit(sprites.sprites['lines' + cat_sprite], (0, 0))
         elif cat.df:
             new_sprite.blit(sprites.sprites['lineartdf' + cat_sprite], (0, 0))
+        elif cat.outside:
+            new_sprite.blit(sprites.sprites['lineartur' + cat_sprite], (0, 0))
         elif cat.dead:
             new_sprite.blit(sprites.sprites['lineartdead' + cat_sprite], (0, 0))
+            
         # draw skin and scars2
         blendmode = pygame.BLEND_RGBA_MIN
         new_sprite.blit(sprites.sprites['skin' + cat.skin + cat_sprite], (0, 0))
@@ -1078,6 +1081,10 @@ def update_sprite(cat):
 
             if cat.df:
                 temp = sprites.sprites['fadedf' + stage + cat_sprite].copy()
+                temp.blit(new_sprite, (0, 0))
+                new_sprite = temp
+            if cat.outside:
+                temp = sprites.sprites['fadeur' + stage + cat_sprite].copy()
                 temp.blit(new_sprite, (0, 0))
                 new_sprite = temp
             else:

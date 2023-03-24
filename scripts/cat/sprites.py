@@ -190,8 +190,8 @@ for x in [
     'bengalcolours', 'marbledcolours', 'rosettecolours', 'smokecolours', 'tickedcolours', 
     'mackerelcolours', 'classiccolours', 'sokokecolours', 'agouticolours', 'singlestripecolours', 
     'shadersnewwhite', 'lineartdead', 'tortiepatchesmasks', 
-    'medcatherbs', 'lineartdf', 'lightingnew', 'fademask',
-    'fadestarclan', 'fadedarkforest'
+    'medcatherbs', 'lineartdf', 'lineartur', 'lightingnew', 'fademask',
+    'fadestarclan', 'fadedarkforest', 'fadeunknownresidence'
 
 ]:
     sprites.spritesheet(f"sprites/{x}.png", x)
@@ -203,13 +203,14 @@ sprites.make_group('lightingnew', (0, 0), 'lighting')
 
 sprites.make_group('lineartdead', (0, 0), 'lineartdead')
 sprites.make_group('lineartdf', (0, 0), 'lineartdf')
+sprites.make_group('lineartur', (0, 0), 'lineartur')
 
 # Fading Fog
 for i in range(0, 3):
     sprites.make_group('fademask', (i, 0), f'fademask{i}')
     sprites.make_group('fadestarclan', (i, 0), f'fadestarclan{i}')
     sprites.make_group('fadedarkforest', (i, 0), f'fadedf{i}')
-
+    sprites.make_group('fadeunknownresidence', (i, 0), f'fadeur{i}')
 for a, i in enumerate(
         ['YELLOW', 'AMBER', 'HAZEL', 'PALEGREEN', 'GREEN', 'BLUE', 
         'DARKBLUE', 'GREY', 'CYAN', 'EMERALD', 'HEATHERBLUE', 'SUNLITICE']):
