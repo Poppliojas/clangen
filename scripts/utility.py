@@ -255,7 +255,7 @@ def create_new_cat(Cat,
     if not litter:
         number_of_cats = 1
     else:
-        number_of_cats = choices([1, 2, 3, 4, 5], [2, 5, 4, 1, 1], k=1)
+        number_of_cats = choices([2, 3, 4, 5], [5, 4, 1, 1], k=1)
         number_of_cats = number_of_cats[0]
     # setting age
     if not age and age != 0:
@@ -1137,18 +1137,18 @@ def is_iterable(y):
         return False
 
 
-def get_text_box_theme(themename=""):
+def get_text_box_theme(theme_name=""):
     """Updates the name of the theme based on dark or light mode"""
     if game.settings['dark mode']:
-        if themename == "":
+        if theme_name == "":
             return "#default_dark"
         else:
-            return themename + "_dark"
+            return theme_name + "_dark"
     else:
-        if themename == "":
-            return "text_box"
+        if theme_name == "":
+            return "#text_box"
         else:
-            return themename
+            return theme_name
 
 
 def quit(savesettings=False, clearevents=False):

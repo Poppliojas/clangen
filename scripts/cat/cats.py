@@ -526,7 +526,7 @@ class Cat():
         """
         self.injuries.clear()
         self.illnesses.clear()
-
+        print('DEATH', self.name)
         # Deal with leader death
         text = ""
         if self.status == 'leader':
@@ -724,6 +724,7 @@ class Cat():
     def add_to_clan(self):
         """ Makes a "outside cat" a clan cat. Former leaders, deputies will become warriors. Apprentices will be assigned a mentor."""
         self.outside = False
+        print(self.name, self.moons)
         if self.status in ['leader', 'deputy']:
             self.status_change('warrior')
             self.status = 'warrior'
@@ -735,7 +736,7 @@ class Cat():
                 self.name) + '.', "ceremony", involved_cats))
         elif self.status == 'kitten' and self.moons >= 12:
             self.status_change('warrior')
-            involved_cats = [self]
+            involved_cats = [self.ID]
             game.cur_events_list.append(Single_Event('A long overdue warrior ceremony is held for ' + str(
                 self.name.prefix) + 'kit. They smile as they finally become a warrior of the Clan and are now named ' + str(
                 self.name) + '.', "ceremony", involved_cats))
@@ -756,7 +757,30 @@ class Cat():
                 self.status_change('warrior')
             else:
                 self.status_change('elder')
+
         game.clan.add_to_clan(self)
+        
+        # check if there are kits under 12 moons with this cat and also add them to the clan
+        children = self.get_children()
+        names = []
+        ids = []
+        for child_id in children:
+            child = Cat.all_cats[child_id]
+            if child.outside and not child.exiled and child.moons < 12:
+                child.add_to_clan()
+                if child.moons < 6:
+                    names.append(child.name)
+                    ids.append(child_id)
+        if len(names) > 0:
+            event_text = "This text should not appear, script cat.py function add_to_clan."
+            if len(names) > 2:
+                event_text = f"{', '.join(names[0:-1])}, and {names[-1]}"
+            elif len(names) == 2:
+                event_text = f"{names[0]} and {names[1]}"
+            else:
+                event_text = f"{names[0]}"
+            game.cur_events_list.append(Single_Event(f"Together with {self.name}, {str(event_text)} joins the Clan.", ids))
+
         self.update_mentor()
 
     def status_change(self, new_status, resort=False):
@@ -1242,7 +1266,7 @@ class Cat():
     def moon_skip_illness(self, illness):
         """handles the moon skip for illness"""
         if not self.is_ill():
-            return False
+            return True
 
         if self.illnesses[illness]["event_triggered"]:
             self.illnesses[illness]["event_triggered"] = False
@@ -1287,7 +1311,7 @@ class Cat():
     def moon_skip_injury(self, injury):
         """handles the moon skip for injury"""
         if not self.is_injured():
-            return
+            return True
 
         if self.injuries[injury]["event_triggered"] is True:
             self.injuries[injury]["event_triggered"] = False
@@ -1305,7 +1329,7 @@ class Cat():
             if self.status == 'leader':
                 game.clan.leader_lives -= 1
             self.die()
-            return
+            return False
 
         keys = self.injuries[injury].keys()
         if 'moons_with' in keys:
@@ -1318,16 +1342,16 @@ class Cat():
             self.injuries[injury]["duration"] -= 1
         if self.injuries[injury]["duration"] <= 0:
             self.healed_condition = True
-            return
+            return False
 
     def moon_skip_permanent_condition(self, condition):
         """handles the moon skip for permanent conditions"""
         if not self.is_disabled():
-            return False
+            return "skip"
 
         if self.permanent_condition[condition]["event_triggered"]:
             self.permanent_condition[condition]["event_triggered"] = False
-            return False
+            return "skip"
 
         mortality = self.permanent_condition[condition]["mortality"]
         moons_until = self.permanent_condition[condition]["moons_until"]
@@ -1338,11 +1362,11 @@ class Cat():
             self.permanent_condition[condition]["moons_until"] = int(moons_until - 1)
             self.permanent_condition[condition]["moons_with"] = 0
             if self.permanent_condition[condition]["moons_until"] != -1:
-                return False
+                return "skip"
         if self.permanent_condition[condition]["moons_until"] == -1 and \
                 self.permanent_condition[condition]["born_with"] is True:
             self.permanent_condition[condition]["moons_until"] = -2
-            return True
+            return "reveal"
 
         keys = self.permanent_condition[condition].keys()
         if 'moons_with' in keys:
@@ -1360,7 +1384,7 @@ class Cat():
             if self.status == 'leader':
                 game.clan.leader_lives -= 1
             self.die()
-            return True
+            return "continue"
 
     # ---------------------------------------------------------------------------- #
     #                                   relative                                   #
@@ -1387,9 +1411,8 @@ class Cat():
                         siblings.append(x)
             return siblings
 
-
     def get_children(self):
-        """Returns list of the children."""
+        """Returns list of the children (ids)."""
         if not self.faded:
             return self.children
         else:
@@ -1545,18 +1568,17 @@ class Cat():
         duration = injury['duration']
         med_duration = injury['medicine_duration']
 
-        amount_per_med = get_amount_cat_for_one_medic(game.clan)
-
-        if medical_cats_condition_fulfilled(Cat.all_cats.values(), amount_per_med):
-            duration = med_duration
-        duration += random.randrange(-1, 1)
-        if duration == 0:
-            duration = 1
-
         if severity == 'default':
             injury_severity = injury["severity"]
         else:
             injury_severity = severity
+
+        if medical_cats_condition_fulfilled(Cat.all_cats.values(), get_amount_cat_for_one_medic(game.clan)):
+            duration = med_duration
+        if severity != 'minor':
+            duration += random.randrange(-1, 1)
+        if duration == 0:
+            duration = 1
 
         if mortality != 0:
             if game.clan.game_mode == "cruel season":
