@@ -141,7 +141,7 @@
 	},
 	"pregnancy": {
 		"primary_chance_mated": 50,
-		"primary_chance_unmated": 110,
+		"primary_chance_unmated": 145,
 		"random_affair_chance": 50,
 		"unmated_random_affair_chance": 10,
 		"one_kit_possibility": {"young adult": 8, "adult": 9, "senior adult": 10, "senior": 4},
@@ -221,7 +221,7 @@
 		]
 	},
 	"death_related": {
-		"leader_death_chance": 85,
+		"leader_death_chance": 80,
 		"old_age_death_start": 150,
 		"old_age_death_chance": 51,
 		"classic_death_chance": 500,
@@ -240,8 +240,8 @@
 		"comment": "Set this to -1 for it to be infinite"
 	},
 	"graduation": {
-		"base_app_timeskip_ex": [[3, 12],[5, 6]],
-		"base_med_app_timeskip_ex": [[2, 7],[2, 3]],
+		"base_app_timeskip_ex": [[3, 8],[5, 6]],
+		"base_med_app_timeskip_ex": [[2, 5],[2, 3]],
 		"max_apprentice_age": {
 			"medicine cat apprentice": 30,
 			"apprentice": 25,

@@ -160,7 +160,7 @@ class Cat():
         "untrained": (0, 0),
         "trainee": (1, 50),
         "prepared": (51, 110),
-        "competent": (110, 170),
+        "competent": (111, 170),
         "proficient": (171, 240),
         "expert": (241, 320),
         "master": (321, 321)
