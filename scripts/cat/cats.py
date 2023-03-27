@@ -202,10 +202,15 @@ class Cat():
             self.parent2 = None
             self.status = status
             self.moons = moons
+            if "outside" in kwargs:
+                self.outside = kwargs["outside"]
+            else:
+                self.outside = False
             if "df" in kwargs:
                 self.df = kwargs["df"]
             else:
-                self.df = False
+                self.df = False                
+                
             if moons > 300:
                 # Out of range, always elder
                 self.age = 'senior'
@@ -2647,8 +2652,14 @@ class Cat():
         else:
             file_name = "faded_senior"
             
+            
+        if self.outside:
+            file_name +="_ur"
+        
+        
         if self.df: 
             file_name += "_df"
+            
             
         file_name += ".png"
             
@@ -2688,7 +2699,7 @@ class Cat():
 
         cat_ob = Cat(ID=cat_info["ID"], prefix=cat_info["name_prefix"], suffix=cat_info["name_suffix"],
                      status=cat_info["status"], moons=cat_info["moons"], faded=True, 
-                     df=cat_info["df"] if "df" in cat_info else False)
+                     df=cat_info["df"], outside=cat_info["outside"] if "df" and "outside" in cat_info else False)
         if cat_info["parent1"]:
             cat_ob.parent1 = cat_info["parent1"]
         if cat_info["parent2"]:

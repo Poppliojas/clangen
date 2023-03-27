@@ -559,6 +559,7 @@ class Game():
                 "parent1": inter_cat.parent1,
                 "parent2": inter_cat.parent2,
                 "df": inter_cat.df,
+                "outside": inter_cat.outside,
                 "faded_offspring": inter_cat.faded_offspring
             }
             try:
