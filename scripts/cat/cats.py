@@ -1696,7 +1696,7 @@ class Cat():
         elif born_with is False:
             moons_until = 0
 
-        if condition == "paralyzed":
+        if name == "paralyzed":
             self.paralyzed = True
             update_sprite(self)
 
