@@ -15,7 +15,6 @@ except ImportError:
 
 from .pelts import describe_appearance
 from .names import Name
-from .thoughts import get_thoughts
 from .appearance_utility import (
     init_pelt,
     init_tint,
@@ -33,10 +32,10 @@ import pygame
 
 from scripts.utility import get_med_cats, get_personality_compatibility, event_text_adjust, update_sprite
 from scripts.game_structure.game_essentials import game, screen
-from scripts.cat.thoughts import get_thoughts
 from scripts.cat_relations.relationship import Relationship
 from scripts.game_structure import image_cache
 from scripts.event_class import Single_Event
+from .thoughts import Thoughts
 
 
 class Cat():
@@ -135,11 +134,13 @@ class Cat():
     }
 
     backstories = [
-        'clanborn', 'halfclan1', 'halfclan2', 'outsider_roots1', 'outsider_roots2',
-        'loner1', 'loner2', 'kittypet1', 'kittypet2', 'rogue1', 'rogue2', 'abandoned1',
-        'abandoned2', 'abandoned3', 'medicine_cat', 'otherclan', 'otherclan2', 'ostracized_warrior', 'disgraced',
-        'retired_leader', 'refugee', 'tragedy_survivor', 'clan_founder', 'orphaned', "orphaned2", "guided1", "guided2",
-        "guided3", "guided4"
+        "clan_founder", "clanborn", "halfclan1", "halfclan2", "outsider_roots1", "outsider_roots2", "loner1", "loner2",
+        "kittypet1", "kittypet2", "kittypet3", "kittypet4", "rogue1", "rogue2", "rogue3", "abandoned1", "abandoned2",
+        "abandoned3", "abandoned4", "medicine_cat", "otherclan", 'otherclan1', "otherclan2", "otherclan3",
+        "ostracized_warrior", "disgraced", "retired_leader", "refugee", "refugee2", "refugee3", "refugee4", 'refugee5',
+        "tragedy_suvivor", "tragedy_survivor2", "tragedy_survivor4", "tragedy_survivor4", "orphaned", "orphaned2",
+        "orphaned3", "orphaned4", "orphaned5", "orphaned6" "wandering_healer1", "wandering_healer2", "guided1",
+        "guided2", "guided3", "guided4", "outsider", "outsider2", "outsider3"
     ]
     backstory_categories = {
         'clan-born_backstories': ['clanborn', 'halfclan1', 'halfclan2', 'outsider_roots1', 'outsider_roots2'],
@@ -150,7 +151,7 @@ class Cat():
                                        'tragedy_survivor', 'disgraced2', 'disgraced3', 'medicine_cat'],
         'otherclan_backstories': ['otherclan', 'otherclan2', 'otherclan3', 'other_clan1'],
         'healer_backstories': ['medicine_cat', 'wandering_healer1', 'wandering_healer2'],
-        'orphaned_backstories': ['orphaned', 'orphaned2', 'orphaned3', 'orphaned4', 'orphaned5'],
+        'orphaned_backstories': ['orphaned', 'orphaned2', 'orphaned3', 'orphaned4', 'orphaned5', 'orphaned6'],
         'abandoned_backstories': ['abandoned1', 'abandoned2', 'abandoned3', 'abandoned4']
     }
 
@@ -740,13 +741,13 @@ class Cat():
         if self.status in ['leader', 'deputy']:
             self.status_change('warrior')
             self.status = 'warrior'
-        elif self.status == 'apprentice' and self.moons >= 12:
+        elif self.status == 'apprentice' and self.moons >= 15 or self.experience_level not in ['trainee']:
             self.status_change('warrior')
             involved_cats = [self.ID]
             game.cur_events_list.append(Single_Event('A long overdue warrior ceremony is held for ' + str(
                 self.name.prefix) + 'paw. They smile as they finally become a warrior of the Clan and are now named ' + str(
                 self.name) + '.', "ceremony", involved_cats))
-        elif self.status == 'kitten' and self.moons >= 12:
+        elif self.status == 'kitten' and self.moons >= 15 or self.experience_level not in ['untrained', 'trainee']:
             self.status_change('warrior')
             involved_cats = [self.ID]
             game.cur_events_list.append(Single_Event('A long overdue warrior ceremony is held for ' + str(
@@ -1037,12 +1038,23 @@ class Cat():
         """ Generates a thought for the cat, which displays on their profile. """
         all_cats = self.all_cats
         other_cat = random.choice(list(all_cats.keys()))
+        game_mode = game.switches['game_mode']
+        biome = game.switches['biome']
+        camp = game.switches['camp_bg']
+        try:
+            season = game.clan.current_season
+        except:
+            season = None
 
         # get other cat
         i = 0
         while other_cat == self.ID and len(all_cats) > 1 or (
-                all_cats.get(other_cat).status in ['kittypet', 'rogue', 'loner']):
+                all_cats.get(other_cat).status in ['kittypet', 'rogue', 'loner', 'former Clancat']):
             other_cat = random.choice(list(all_cats.keys()))
+            # makes sure that a cat won't think about a cat that was dead longer than they've been alive (with 4 moons difference)
+            if all_cats[other_cat].dead and not self.dead and not self.status in ['leader', 'medicine cat']:
+                if other_cat not in self.relationships:
+                    continue
             i += 1
             if i > 100:
                 other_cat = None
@@ -1050,10 +1062,9 @@ class Cat():
 
         other_cat = all_cats.get(other_cat)
 
-        # get possible thoughts
-        thought_possibilities = get_thoughts(self, other_cat)
-        chosen_thought = random.choice(thought_possibilities)
-
+        # get chosen thought
+        chosen_thought = Thoughts.get_chosen_thought(self, other_cat, game_mode, biome, season, camp)
+        
         # insert name if it is needed
         if "r_c" in chosen_thought:
             chosen_thought = chosen_thought.replace("r_c", str(other_cat.name))
@@ -1723,7 +1734,6 @@ class Cat():
                 "event_triggered": new_perm_condition.new
             }
             new_condition = True
-            print(self.permanent_condition)
         return new_condition
 
     def not_working(self):
