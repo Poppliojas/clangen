@@ -569,7 +569,8 @@ class Cat():
         if game.clan.game_mode != 'classic':
             self.grief(body)
 
-        Cat.dead_cats.append(self)
+        if not self.outside or self.exiled:
+            Cat.dead_cats.append(self)
 
         return text
 
@@ -1722,6 +1723,7 @@ class Cat():
                 "event_triggered": new_perm_condition.new
             }
             new_condition = True
+            print(self.permanent_condition)
         return new_condition
 
     def not_working(self):
