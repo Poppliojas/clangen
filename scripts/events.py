@@ -658,11 +658,11 @@ class Events():
             if random.getrandbits(6) == 1 and not cat.dead:
                 # print("Cat Died: " + str(cat.name))
                 cat.dead = True
-                elif cat.status in ['kittypet', 'loner', 'rogue']:
+                if cat.exiled:
+                    text = f'Rumors reach your Clan that the exiled {cat.name} has died recently.'
+                elif cat.status in ['kittypet', 'loner', 'rogue', 'former ClanCat']:
                     text = f'Rumors reach your Clan that the {cat.status} ' \
                         f'{cat.name} has died recently.'
-                elif cat.exiled:
-                    text = f'Rumors reach your Clan that the exiled {cat.name} has died recently.'
                 else:
                     text = f'Rumors reach your Clan that the lost cat, {cat.name}, ' \
                         f'unable to find their way back to their clan, has died recently.'
