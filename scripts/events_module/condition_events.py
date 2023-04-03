@@ -1,7 +1,4 @@
-try:
-    import ujson
-except ImportError:
-    import json as ujson
+import ujson
 import random
 from copy import deepcopy
 
@@ -325,7 +322,7 @@ class Condition_Events():
                         else:
                             return perm_condition
                 except KeyError:
-                    print(f"WARNING: {injury_name} couldn't be found in injury dict! no scar was given")
+                    print(f"WARNING: {injury_name} couldn't be found in injury dict! no permanent condition was given")
                     return perm_condition
 
         elif condition is not None:

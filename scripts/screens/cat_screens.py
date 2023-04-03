@@ -8,10 +8,7 @@ import pygame
 from ..datadir import get_save_dir
 from ..game_structure.windows import ChangeCatName, SpecifyCatGender
 
-try:
-    import ujson
-except ImportError:
-    import json as ujson
+import ujson
 
 from scripts.utility import update_sprite, event_text_adjust, scale, ACC_DISPLAY
 
@@ -916,8 +913,7 @@ class ProfileScreen(Screens):
         output = ""
 
         # STATUS
-        if the_cat.outside and not the_cat.exiled and not the_cat.status in ['kittypet', 'loner', 'rogue',
-                                                                             'former Clancat']:
+        if the_cat.outside and not the_cat.exiled and the_cat.status not in ['kittypet', 'loner', 'rogue', 'former Clancat']:
             output += "<font color='#FF0000'>lost</font>"
         elif the_cat.exiled:
             output += "<font color='#FF0000'>exiled</font>"

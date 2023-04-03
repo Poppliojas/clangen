@@ -1,5 +1,109 @@
 [
     {
+        "id": "bloodthirsty_rogue_to_alive_playerclan_leader",
+        "thoughts": [
+            "Tells themself they're going to kill r_c and take their position in c_n"
+        ],
+        "random_status_constraint": [
+            "leader",
+            "deputy"
+        ],
+        "main_trait_constraint": [
+            "bloodthirsty"
+        ],
+        "random_outside_status":[
+            "clancat"
+        ]
+    },
+    {
+        "id": "vengeful_rogue",
+        "thoughts": [
+            "Wants vengeance on their past Clan"
+        ],
+        "main_trait_constraint": [
+            "vengeful"
+        ],
+        "random_outside_status":[
+            "outside"
+        ]
+    },
+    {
+        "id": "strange_rogue",
+        "thoughts": [
+            "Is starting to hear voices from their past Clanmates",
+            "Crowns themself the ruler of all rogues"
+        ],
+        "main_trait_constraint": [
+            "strange"
+        ],
+        "random_outside_status":[
+            "outside"
+        ]
+    },
+    {
+        "id": "shameless_rogue",
+        "thoughts": [
+            "Is eating kittypet kibble",
+            "Stole some random kittypet's food",
+            "Is eating dog food they found",
+            "Is putting their own scent on c_n's clearly marked borders"
+        ],
+        "main_trait_constraint": [
+            "shameless"
+        ],
+        "random_outside_status":[
+            "outside"
+        ]
+    },
+    {
+        "id": "cold_rogue",
+        "thoughts": [
+            "Regrets nothing from their past Clan life"
+        ],
+        "main_trait_constraint": [
+            "cold"
+        ],
+        "random_outside_status":[
+            "outside"
+        ]
+    },
+    {
+        "id": "rogue_to_other_rogues",
+        "thoughts": [
+            "Showing off their scars to r_c"
+        ],
+        "main_age_constraint": [
+            "adult",
+            "senior adult",
+            "senior"
+        ],
+        "random_age_constraint": [
+            "adult",
+            "senior adult",
+            "senior"
+        ],
+        "random__status_constraint": [
+            "rogue"
+        ],
+        "random_outside_status":[
+            "outside"
+        ]
+    },
+    {
+        "id": "rogue_to_playerclan_warriors",
+        "thoughts": [
+            "Wants to show r_c in c_n a whole new world as a rogue",
+            "Is waiting to ambush r_c in c_n"
+    
+        ],
+        "random_status_constraint": [
+            "any"
+        ],
+        "random_outside_status":[
+            "clancat"
+        ]
+    },
+    {
         "id": "general_rogue_thoughts",
         "thoughts": [
             "Wishes the other rogues would leave them alone",
@@ -9,10 +113,16 @@
             "Sniffs for their next meal",
             "Wonders if they can find a warm place to sleep tonight",
             "Was chased by a fox recently",
-            "Wishes they were in a warm nest"
+            "Wishes they were in a warm nest",
+            "Wonders what it's like to live with Twolegs",
+            "Is struggling to survive on their own",
+            "Is fighting with another rogue over food",
+            "Laughed at the thought of dead cats 'watching over' c_n",
+            "Debates if their previous Clan was fair casting them out",
+            "Debates if they should join c_n"
         ],
-        "main_status_constraint": [
-            "rogue"
+        "random_outside_status":[
+            "outside"
         ]
     },
     {
@@ -20,11 +130,11 @@
         "thoughts": [
             "Is currently trying to figure out how to catch a bird"
         ],
-        "main_status_constraint": [
-            "rogue"
-        ],
         "main_age_constraint": [
             "kitten"
+        ],
+        "random_outside_status":[
+            "outside"
         ]
     },
     {
@@ -35,45 +145,47 @@
             "Has been teaching themselves how to hunt",
             "Misses their friends",
             "Regrets their actions",
-            "Wonders what being in a Clan is like"
-        ],
-        "main_status_constraint": [
-            "rogue"
+            "Wonders what being in a Clan is like",
+           "Is spending a long time thinking about a cool rogue name"
         ],
         "main_age_constraint": [
             "adolescent"
+        ],
+        "random_outside_status":[
+            "outside"
         ]
     },
     {
         "id": "adult_rogue_thoughts",
         "thoughts": [
             "Hisses at a missed catch",
+            "Thinking if they should build their own Clan",
             "Is hoping they can find something to fill their belly tonight",
             "Licks at an old, aching scar in an attempt to soothe it",
             "Was almost found by a c_n patrol",
             "Is lurking in c_n territory"
         ],
-        "main_status_constraint": [
-            "rogue"
-        ],
         "main_age_constraint": [
             "young adult",
             "adult",
             "senior adult"
+        ],
+        "random_outside_status":[
+            "outside"
         ]
     },
     {
-        "id": "elder_and_senior_rogue_thoughts",
+        "id": "senior_rogue_thoughts",
         "thoughts": [
             "Thinks about finding some Twolegs to help them in their old age",
             "Thinks their joints are aching too much to hunt today",
             "Wonders if they can carry on"
         ],
-        "main_status_constraint": [
-            "rogue"
-        ],
         "main_age_constraint": [
             "senior"
+        ],
+        "random_outside_status":[
+            "outside"
         ]
     }
 ]

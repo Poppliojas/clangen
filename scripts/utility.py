@@ -10,10 +10,7 @@ from random import choice, choices, randint, random, sample
 import pygame
 from scripts.cat.names import names
 
-try:
-    import ujson
-except ImportError:
-    import json as ujson
+import ujson
 import logging
 
 
@@ -22,7 +19,7 @@ from scripts.game_structure import image_cache
 
 from sys import exit as sys_exit
 
-from scripts.cat.sprites import sprites, Sprites
+from scripts.cat.sprites import sprites, Sprites, spriteSize
 from scripts.cat.appearance_utility import init_pelt
 from scripts.cat.pelts import (
     choose_pelt,
@@ -248,7 +245,10 @@ def create_new_cat(Cat,
     :param outside: set this as True to generate the cat as an outsider instead of as part of the clan - default: False (clan cat)
     """
     accessory = None
-    backstory = choice(backstory)
+    if type(backstory) == list:
+        backstory = choice(backstory)
+    else:
+        backstory = backstory
 
     if backstory in (Cat.backstory_categories["former_clancat_backstories"] or Cat.backstory_categories["otherclan_categories"]):
         other_clan = True
@@ -434,14 +434,14 @@ def create_outside_cat(Cat, status, backstory, alive=True, thought=None):
         if not alive:
             new_cat.dead = True
 
-        if thought:
-            new_cat.thought = thought
+        thought = "Wonders about those Clan cats they just met"
+        new_cat.thought = thought
 
         # create relationships - only with outsiders 
         # (this function will handle, that the cat only knows other outsiders)
         new_cat.create_relationships_new_cat()
 
-        # game.clan.add_cat(new_cat)
+        game.clan.add_cat(new_cat)
         game.clan.add_to_outside(new_cat)
         name = str(name + suffix)
 
@@ -971,7 +971,7 @@ def update_sprite(cat):
     new_sprite = pygame.Surface((sprites.size, sprites.size), pygame.HWSURFACE | pygame.SRCALPHA)
 
     # setting the cat_sprite (bc this makes things much easier)
-    if cat.not_working() and cat.age != 'newborn':
+    if cat.not_working() and cat.age != 'newborn' and game.config['cat_sprites']['sick_sprites']:
         if cat.age in ['kitten', 'adolescent']:
             cat_sprite = str(19)
         else:
@@ -1021,7 +1021,7 @@ def update_sprite(cat):
             # Multiply with alpha does not work as you would expect - it just lowers the alpha of the
             # entire surface. To get around this, we first blit the tint onto a white background to dull it,
             # then blit the surface onto the sprite with pygame.BLEND_RGB_MULT
-            tint = pygame.Surface((50, 50)).convert_alpha()
+            tint = pygame.Surface((spriteSize, spriteSize)).convert_alpha()
             tint.fill(tuple(Sprites.cat_tints["tint_colours"][cat.tint]))
             new_sprite.blit(tint, (0, 0), special_flags=pygame.BLEND_RGB_MULT)
 
@@ -1032,7 +1032,7 @@ def update_sprite(cat):
             # Apply tint to white patches.
             if cat.white_patches_tint != "none" and cat.white_patches_tint in Sprites.white_patches_tints[
                 "tint_colours"]:
-                tint = pygame.Surface((50, 50)).convert_alpha()
+                tint = pygame.Surface((spriteSize, spriteSize)).convert_alpha()
                 tint.fill(tuple(Sprites.white_patches_tints["tint_colours"][cat.white_patches_tint]))
                 white_patches.blit(tint, (0, 0), special_flags=pygame.BLEND_RGB_MULT)
 
@@ -1044,7 +1044,7 @@ def update_sprite(cat):
             points = sprites.sprites['white' + cat.points + cat_sprite].copy()
             if cat.white_patches_tint != "none" and cat.white_patches_tint in Sprites.white_patches_tints[
                  "tint_colours"]:
-                tint = pygame.Surface((50, 50)).convert_alpha()
+                tint = pygame.Surface((spriteSize, spriteSize)).convert_alpha()
                 tint.fill(tuple(Sprites.white_patches_tints["tint_colours"][cat.white_patches_tint]))
                 points.blit(tint, (0, 0), special_flags=pygame.BLEND_RGB_MULT)
             new_sprite.blit(points, (0, 0))

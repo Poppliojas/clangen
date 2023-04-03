@@ -18,7 +18,7 @@
     "beam", "beak", "back", "bark", "bee", "belly", "berry", "bite", "bird", "brink", "blaze", "blink", "bloom", 
     "blossom", "blotch", "bone", "bounce", "bracken", "break", "branch", "breeze", "briar", "bright", "brook", "bubble", "bud",
     "blur", "burr", "burst", "burn", "bush", "buzz",
-    "call", "catcher", "chase", "chaser", "chirp", "chomp", "clash", "cloud", "clover", "coat", "crackle", "crawl", 
+    "call", "catcher", "chase", "chaser", "chirp", "chomp", "clash", "cloud", "clover", "crackle", "crawl", 
     "creek", "cry", "curl", "current",
     "dapple", "daisy", "dart", "dash", "dance", "daze", "dazzle", "dawn", "drift", "drop", "dusk", "dust", "dew",
     "eagle", "ear", "ears", "eater","echo", "egg", "ember", "eye", "eyes", 
@@ -33,7 +33,7 @@
     "mane", "mask", "mark", "melt", "mimic", "minnow", "mist", "moth", "moon", "moss", "mouse", "munch", "muzzle", 
     "needle", "nest", "nettle", "newt", "nibble", "night", "nip", "noise", "nose", "nudge", "nut",
     "pad", "patch", "path", "peak", "petal", "plume", "pond", "pool", "poppy", "pounce", "prickle", "puddle",
-    "rain", "rapid", "reed", "rip", "ripple", "river", "roar", "rose",
+    "rain", "rapid", "reed", "rip", "ripple", "rise", "river", "roar", "rose",
     "root", "rump", "rumble", "run", "runner", 
     "scar", "scratch", "screech", "seed", "shade", "shadow", "shard", "shell", "shimmer", "shiver", "shriek", "shine",
     "shock", "sight", "skip", "sky", "slip", "snap", "snarl", "snout", "snow", "song", "spark", "speck", "speckle", "spirit", 
@@ -124,22 +124,22 @@
     "Mimosa", "Fringe", "Ibis", "Air", "Bright"
     ],
     "PALEGREY": [
-    "Grey", "Grey", "Silver", "Pale", "Light", "Cloud", "Cloudy", "Hail", "Frost", "Ice", "Icy", "Mouse", "Bright", "Fog", "Freeze",
+    "Gray", "Gray", "Silver", "Pale", "Light", "Cloud", "Cloudy", "Hail", "Frost", "Ice", "Icy", "Mouse", "Bright", "Fog", "Freeze",
     "Frozen", "Stone", "Pebble", "Dove", "Sky", "Cotton", "Heather", "Ashen", "Titmouse", "Pipit", "Azalea", 
     "Fringe", "Mistle", "Icicle"
     ],
     "SILVER": [
-    "Grey", "Silver", "Silver", "Silver", "Cinder", "Ice", "Icy", "Frost", "Frozen", "Freeze", "Rain", "Blue",  "Mica",
+    "Gray", "Silver", "Silver", "Silver", "Cinder", "Ice", "Icy", "Frost", "Frozen", "Freeze", "Rain", "Blue",  "Mica",
     "River", "Blizzard", "Flurry", "Bone", "Bleak", "Stone", "Pebble", "Heather", "Shale",  "Scale", "Crocus", 
     "Rue", "Fringe", "Glint", "Mistle", "Shatter", "Gossamer", "Air", "Pale", "Ermine", "Stoat", "Gull", "Vine", "Lilac"
     ],
     "GREY": [
-    "Grey", "Grey", "Ash", "Ashen", "Cinder", "Rock", "Stone", "Shade", "Mouse", "Smoke", "Smoky", "Shadow", "Fog", "Bone",
+    "Gray", "Gray", "Ash", "Ashen", "Cinder", "Rock", "Stone", "Shade", "Mouse", "Smoke", "Smoky", "Shadow", "Fog", "Bone",
     "Bleak", "Rain", "Storm", "Soot", "Pebble", "Mist", "Misty", "Heather", "Shale", "Trout", "Shrike", "Plume", "Tassel",
     "Lyre", "Rat", "Gull", "Pigeon"
     ],
     "DARKGREY": [
-    "Grey", "Grey", "Shade", "Raven", "Crow", "Stone", "Dark", "Dark", "Night", "Cinder", "Ash", "Ashen", "Pewter", "Twilight",
+    "Gray", "Gray", "Shade", "Raven", "Crow", "Stone", "Dark", "Dark", "Night", "Cinder", "Ash", "Ashen", "Pewter", "Twilight",
     "Smoke", "Smokey", "Shadow", "Bleak", "Rain", "Storm", "Pebble", "Mist", "Misty", "Warbler", "Wisp", "Gum"
     ],
     "GHOST": [
@@ -270,7 +270,7 @@
     "GREEN": ["Green", "Green", "Fern", "Weed", "Holly", "Clover", "Olive", "Jade", "Tree", "Algae", "Aloe"],
     "BLUE": ["Blue", "Blue", "Ice", "Sky", "Lake", "Frost", "Water", "Icicle", "Frosty", "Cold"],
     "DARKBLUE": ["Dark", "Blue", "Blue", "Sky", "Lake", "Berry", "Water", "Deep", "Cobalt", "River", "Night", "Rain"],
-    "GREY": ["Grey", "Stone", "Silver", "Ripple", "Moon", "Rain", "Storm", "Heather"],
+    "GREY": ["Gray", "Stone", "Silver", "Ripple", "Moon", "Rain", "Storm", "Heather"],
     "CYAN": ["Sky", "Blue", "River", "Rapid", "Ice", "Frost", "Cold"],
     "EMERALD": ["Emerald", "Green", "Shine", "Green", "Pine", "Weed"],
     "PALEBLUE": ["Pale", "Blue", "Blue", "Sky", "River", "Ripple", "Day", "Cloud"],

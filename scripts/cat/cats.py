@@ -8,10 +8,7 @@ import itertools
 from ..datadir import get_save_dir
 from ..events_module.generate_events import GenerateEvents
 
-try:
-    import ujson
-except ImportError:
-    import json as ujson
+import ujson
 
 from .pelts import describe_appearance
 from .names import Name
@@ -741,13 +738,13 @@ class Cat():
         if self.status in ['leader', 'deputy']:
             self.status_change('warrior')
             self.status = 'warrior'
-        elif self.status == 'apprentice' and self.moons >= 15 or self.experience_level not in ['trainee']:
+        elif self.status == 'apprentice' and self.moons >= 15:
             self.status_change('warrior')
             involved_cats = [self.ID]
             game.cur_events_list.append(Single_Event('A long overdue warrior ceremony is held for ' + str(
                 self.name.prefix) + 'paw. They smile as they finally become a warrior of the Clan and are now named ' + str(
                 self.name) + '.', "ceremony", involved_cats))
-        elif self.status == 'kitten' and self.moons >= 15 or self.experience_level not in ['untrained', 'trainee']:
+        elif self.status == 'kitten' and self.moons >= 15:
             self.status_change('warrior')
             involved_cats = [self.ID]
             game.cur_events_list.append(Single_Event('A long overdue warrior ceremony is held for ' + str(
@@ -1041,24 +1038,53 @@ class Cat():
         game_mode = game.switches['game_mode']
         biome = game.switches['biome']
         camp = game.switches['camp_bg']
+        dead_chance = random.getrandbits(4)
         try:
             season = game.clan.current_season
         except:
             season = None
 
+        # this figures out where the cat is
+        where_kitty = None
+        if not self.dead and not self.outside:
+            where_kitty = "inside"
+        elif self.dead and not self.df and not self.outside:
+            where_kitty = 'starclan'
+        elif self.dead and self.df:
+            where_kitty = 'hell'
+        elif self.dead and self.outside:
+            where_kitty = 'UR'
+        elif not self.dead and self.outside:
+            where_kitty = 'outside'
         # get other cat
         i = 0
-        while other_cat == self.ID and len(all_cats) > 1 or (
-                all_cats.get(other_cat).status in ['kittypet', 'rogue', 'loner', 'former Clancat']):
-            other_cat = random.choice(list(all_cats.keys()))
-            # makes sure that a cat won't think about a cat that was dead longer than they've been alive (with 4 moons difference)
-            if all_cats[other_cat].dead and not self.dead and not self.status in ['leader', 'medicine cat']:
-                if other_cat not in self.relationships:
-                    continue
-            i += 1
-            if i > 100:
-                other_cat = None
-                break
+        # for cats inside the clan
+        if where_kitty == 'inside':
+            while other_cat == self.ID and len(all_cats) > 1 \
+            or (all_cats.get(other_cat).dead and dead_chance != 1) \
+            or (other_cat not in self.relationships):
+                other_cat = choice(list(all_cats.keys()))
+                i += 1
+                if i > 100:
+                    other_cat = None
+                    break
+        # for dead cats
+        elif where_kitty in ['starclan', 'hell', 'UR']:
+            while other_cat == self.ID and len(all_cats) > 1:
+                other_cat = choice(list(all_cats.keys()))
+                i += 1
+                if i > 100:
+                    other_cat = None
+                    break
+        # for cats currently outside
+        elif where_kitty == 'outside':
+            while other_cat == self.ID and len(all_cats) > 1\
+            or (other_cat not in self.relationships):
+                other_cat = choice(list(all_cats.keys()))
+                i += 1
+                if i > 100:
+                    other_cat = None
+                    break
 
         other_cat = all_cats.get(other_cat)
 
