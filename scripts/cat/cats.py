@@ -737,7 +737,6 @@ class Cat():
 
         if self.status in ['leader', 'deputy']:
             self.status_change('warrior')
-            self.status = 'warrior'
         elif self.status == 'apprentice' and self.moons >= 15:
             self.status_change('warrior')
             involved_cats = [self.ID]
@@ -823,7 +822,6 @@ class Cat():
             self.update_mentor()
 
             if old_status == 'leader':
-                game.clan.leader_lives = 0
                 self.died_by = []  # Clear their deaths.
                 if game.clan.leader:
                     if game.clan.leader.ID == self.ID:
@@ -850,7 +848,6 @@ class Cat():
             self.retired = True
 
             if old_status == 'leader':
-                game.clan.leader_lives = 0
                 self.died_by = []  # Clear their deaths.
                 if game.clan.leader:
                     if game.clan.leader.ID == self.ID:
@@ -2113,12 +2110,8 @@ class Cat():
         # if the cat has a mate, they are not open for a new mate
         if for_patrol:
             if self.mate or other_cat.mate:
-                if not for_love_interest:
+                if not for_love_interest or not affair:
                     return False
-                elif not affair:
-                    return False
-                else:
-                    return True
         else:
             if self.mate or other_cat.mate and not for_love_interest:
                 return False
