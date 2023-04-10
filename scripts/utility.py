@@ -184,19 +184,6 @@ def get_current_season():
     return game.clan.current_season
 
 
-def change_clan_reputation(difference=0):
-    """
-    will change the clan's reputation with outsider cats according to the difference parameter.
-    """
-    # grab rep
-    reputation = int(game.clan.reputation)
-    # ensure this is an int value
-    difference = int(difference)
-    # change rep
-    reputation += difference
-    game.clan.reputation = reputation
-
-
 def change_clan_relations(other_clan, difference=0):
     """
     will change the clan's relation with other clans according to the difference parameter.
@@ -934,6 +921,13 @@ def scale(rect):
 
     return rect
 
+def scale_dimentions(dim):
+    dim = list(dim)
+    dim[0] = round(dim[0] / 1600 * screen_x) if dim[0] > 0 else dim[0]
+    dim[1] = round(dim[1] / 1400 * screen_y) if dim[1] > 0 else dim[1]
+    dim = tuple(dim)
+    
+    return dim
 
 def draw(cat, pos):
     new_pos = list(pos)
