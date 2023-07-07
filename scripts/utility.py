@@ -1361,6 +1361,7 @@ def generate_sprite(cat, life_state=None, scars_hidden=False, acc_hidden=False, 
             new_sprite.blit(sprites.sprites['lineartdf' + cat_sprite], (0, 0))
         elif dead:
             new_sprite.blit(sprites.sprites['lineartdead' + cat_sprite], (0, 0))
+            
         # draw skin and scars2
         blendmode = pygame.BLEND_RGBA_MIN
         new_sprite.blit(sprites.sprites['skin' + cat.pelt.skin + cat_sprite], (0, 0))
@@ -1411,6 +1412,10 @@ def generate_sprite(cat, life_state=None, scars_hidden=False, acc_hidden=False, 
 
             if cat.df:
                 temp = sprites.sprites['fadedf' + stage + cat_sprite].copy()
+                temp.blit(new_sprite, (0, 0))
+                new_sprite = temp
+            if cat.outside:
+                temp = sprites.sprites['fadeur' + stage + cat_sprite].copy()
                 temp.blit(new_sprite, (0, 0))
                 new_sprite = temp
             else:
