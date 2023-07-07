@@ -20,7 +20,6 @@ status_dict = {
     "ceremony screen": "Holding a ceremony",
     "starclan screen": "Viewing StarClan",
     "dark forest screen": "Viewing the Dark Forest",
-    "unknown residence screen": "Viewing the Unknown Residence",
     "med den screen": "In the medicine den",
     }
 

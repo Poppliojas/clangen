@@ -68,7 +68,7 @@ class Cat():
         "untrained": (0, 0),
         "trainee": (1, 50),
         "prepared": (51, 110),
-        "competent": (111, 170),
+        "competent": (110, 170),
         "proficient": (171, 240),
         "expert": (241, 320),
         "master": (321, 321)
@@ -148,8 +148,7 @@ class Cat():
             if "df" in kwargs:
                 self.df = kwargs["df"]
             else:
-                self.df = False                
-                
+                self.df = False
             if moons > 300:
                 # Out of range, always elder
                 self.age = 'senior'

@@ -1,7 +1,7 @@
 {
 	"freshkill":{
-		"activate_death": "true",
-		"activate_events": "true",
+		"activate_death": false,
+		"activate_events": false,
 		"start_amount": 60,
 		"auto_warrior_prey": [1,3],
 		"auto_apprentice_prey": [1,2],
@@ -16,11 +16,11 @@
 			"medicine cat": 2,
 			"medicine cat apprentice": 1.5,
 			"mediator apprentice": 1.5,
-			"mediator": 2.0,
-			"warrior": 3.0,
+			"mediator": 2,
+			"warrior": 3,
 			"apprentice": 1.5,
 			"elder": 1.5,
-			"queen": 4.0,
+			"queen": 4,
 			"kitten": 0.5,
 			"newborn": 0.2
 		},
@@ -216,8 +216,9 @@
 		"cat_amount_welcoming": 3
 	},
 	"pregnancy": {
-		"primary_chance_mated": 50,
-		"primary_chance_unmated": 145,
+		"birth_cooldown": 6,
+		"primary_chance_mated": 80,
+		"primary_chance_unmated": 130,
 		"random_affair_chance": 50,
 		"unmated_random_affair_chance": 10,
 		"one_kit_possibility": {"young adult": 8, "adult": 9, "senior adult": 10, "senior": 4},
@@ -274,7 +275,7 @@
 		"mediator_app_chance": 50,
 		"base_medicine_app_chance": 41,
 		"become_mediator_chances": {
-			"warrior": 1000,
+			"warrior": 5000,
 			"elder": 400
 		}
 	},
@@ -313,7 +314,7 @@
 		]
 	},
 	"death_related": {
-		"leader_death_chance": 80,
+		"leader_death_chance": 125,
 		"old_age_death_start": 150,
 		"old_age_death_chance": 51,
 		"classic_death_chance": 500,
@@ -338,8 +339,8 @@
 		"comment": "Set this to -1 for it to be infinite"
 	},
 	"graduation": {
-		"base_app_timeskip_ex": [[3, 8],[5, 6]],
-		"base_med_app_timeskip_ex": [[2, 5],[2, 3]],
+		"base_app_timeskip_ex": [[3, 12],[5, 6]],
+		"base_med_app_timeskip_ex": [[2, 7],[2, 3]],
 		"max_apprentice_age": {
 			"medicine cat apprentice": 30,
 			"apprentice": 25,
